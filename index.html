@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
-                    <p class="text-sm text-slate-500 mt-0.5">عرض الأسماء والمبالغ (مرتب حسب الحرف الأول فقط)</p>
+                    <p class="text-sm text-slate-500 mt-0.5">عرض الأسماء والمبالغ (بحث ذكي ومرن بالكلمات)</p>
                 </div>
             </div>
         </header>
@@ -60,7 +60,7 @@
         <!-- Search and Filter Bar -->
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="relative w-full md:w-96">
-                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ابحث بالاسم..." class="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ابحث بأي كلمات من الاسم (مثل: أحمد عيد)..." class="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 absolute right-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -169,7 +169,7 @@
             { name: "احمد عطية عبد اللطيف الدشتي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
             { name: "احمد فاروق موسى", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "احمد فوزي أحمد سعده", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
-            { name: "احمد مجدي عبد السلام عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "احمد مجدي عبد السلام عيد", leh: 50, aleih: "-", motaz: 0, hamada: 0 },
             { name: "احمد محمد بلال الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "احمد محمد حسن أبو سمرة", leh: 20, aleih: "-", motaz: 20, hamada: 0 },
             { name: "احمد محمد عيد", leh: 10, aleih: "-", motaz: 0, hamada: 10 },
@@ -209,12 +209,22 @@
             { name: "الجميل بلال الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataPureAlifV11')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataMultiWordSearchV13')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
             if (item.hamada === undefined) item.hamada = 0;
         });
+
+        function normalizeText(text) {
+            if (!text) return '';
+            return text
+                .toLowerCase()
+                .replace(/[أإآا]/g, 'ا')
+                .replace(/ة/g, 'ه')
+                .replace(/ى/g, 'ي')
+                .trim();
+        }
 
         function normalizeFirstLetter(char) {
             if (!char) return '';
@@ -276,8 +286,19 @@
         }
 
         function filterTable() {
-            const query = document.getElementById('searchInput').value.trim();
-            const filtered = data.filter(item => item.name.includes(query));
+            const rawQuery = document.getElementById('searchInput').value;
+            const queryWords = normalizeText(rawQuery).split(/\s+/).filter(w => w.length > 0);
+            
+            if (queryWords.length === 0) {
+                renderTable();
+                return;
+            }
+
+            const filtered = data.filter(item => {
+                const normalizedItemName = normalizeText(item.name);
+                // Check if all words entered by user exist anywhere in the person's full name
+                return queryWords.every(word => normalizedItemName.includes(word));
+            });
             renderTable(filtered);
         }
 
@@ -299,6 +320,7 @@
         }
 
         function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.remove('hidden');
             document.getElementById('detailsModal').classList.remove('flex');
             document.getElementById('detailsModal').classList.add('hidden');
         }
