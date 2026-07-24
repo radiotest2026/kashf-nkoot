@@ -87,7 +87,7 @@
             </div>
         </div>
 
-        <!-- Stats / Summary Cards (Moved to Bottom) -->
+        <!-- Stats / Summary Cards (Bottom) -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                 <p class="text-sm font-medium text-slate-500">إجمالي عدد الأسماء</p>
@@ -144,16 +144,16 @@
             { name: "إبراهيم أحمد عيد (أبو علاء)", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "إبراهيم حامد الكناني", leh: 150, aleih: "-", motaz: 150, hamada: 0 },
             { name: "إبراهيم حامد خلف", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "إبراهيم حامد عوض موسي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "إبراهيم حامد عوض موسى", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "إبراهيم زين عطية الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "إبراهيم صابر أبو العينين", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
             { name: "أبو رؤوف (نسيب أحمد السيد)", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
             { name: "أحمد أحمد إبراهيم عيد (أبو مالك)", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
-            { name: "احمد السيد أبو الفتوح الدشتي", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
-            { name: "احمد الصفصافي كشك", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
+            { name: "أحمد السيد أبو الفتوح الدشتي", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
+            { name: "أحمد الصفصافي كشك", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
             { name: "أحمد بلال جمعة جبل", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "أحمد جمعة أحمد سعدة", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
-            { name: "احمد حازم سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد حازم سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "أحمد حامد سلامة", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
             { name: "أحمد حسين محمد وفا", leh: 5, aleih: "-", motaz: 5, hamada: 0 },
             { name: "أحمد ربيع الموافي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
@@ -174,7 +174,7 @@
             { name: "أحمد محمد حسن أبو سمرة", leh: 20, aleih: "-", motaz: 20, hamada: 0 },
             { name: "أحمد محمد عيد", leh: 10, aleih: "-", motaz: 0, hamada: 10 },
             { name: "أحمد محمد محمود عبد الله", leh: 600, aleih: "-", motaz: 600, hamada: 0 },
-            { name: "احمد محمد منتصر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد محمد منتصر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "أحمد محمود عوض الله سلامة", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
             { name: "أحمد نبيل أبو الهدي الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "أسامة عبد العزيز زيد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
@@ -209,7 +209,7 @@
             { name: "الجميل بلال الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataBottomTotalsV6')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataAhmadHamzaFixedV7')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
@@ -309,4 +309,3 @@
     </script>
 </body>
 </html>
-
