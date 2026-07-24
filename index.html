@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كشف نقوط</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Cairo', 'sans-serif'],
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
+                            '50%': { transform: 'translateY(-6px) rotate(2deg)' },
+                        },
+                        pulseGlow: {
+                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
+                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
+                        }
+                    },
+                    animation: {
+                        float: 'float 3s ease-in-out infinite',
+                        pulseGlow: 'pulseGlow 2.5s ease-in-out infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Cairo', sans-serif; }
+    </style>
+</head>
+<body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen text-slate-800">
+
+    <div class="max-w-7xl mx-auto px-4 py-8">
+        <!-- Header with Animated Logo -->
+        <header class="bg-white shadow-sm rounded-2xl p-6 mb-8 border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4">
+                <!-- Animated Ledger Logo -->
+                <div class="relative w-14 h-14 bg-gradient-to-tr from-emerald-600 to-teal-500 rounded-2xl shadow-md flex items-center justify-center animate-float overflow-hidden">
+                    <div class="absolute inset-0 bg-white/10 animate-pulseGlow"></div>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
+                    <p class="text-sm text-slate-500 mt-0.5">عرض الأسماء والمبالغ (مرتب حسب الحرف الأول فقط)</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Search and Filter Bar -->
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
+            <div class="relative w-full md:w-96">
+                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ابحث بالاسم..." class="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 absolute right-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+            </div>
+            <div class="text-sm text-slate-500" id="resultsCount">عرض جميع النتائج</div>
+        </div>
+
+        <!-- Table Container -->
+        <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
+            <div class="overflow-x-auto">
+                <table class="w-full text-right border-collapse">
+                    <thead>
+                        <tr class="bg-slate-50 border-b border-slate-200 text-slate-600 text-sm font-semibold">
+                            <th class="py-4 px-6 w-16">م</th>
+                            <th class="py-4 px-6">الاسم كما في الدفتر</th>
+                            <th class="py-4 px-6">له (جنيه)</th>
+                            <th class="py-4 px-6">عليه (جنيه)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dataTableBody" class="divide-y divide-slate-100 text-sm">
+                        <!-- Data will be populated via JS -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Stats / Summary Cards (Moved to Bottom) -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-sm font-medium text-slate-500">إجمالي عدد الأسماء</p>
+                <p id="totalNames" class="text-3xl font-bold text-slate-900 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-sm font-medium text-emerald-600">إجمالي له (جنيه)</p>
+                <p id="totalLeh" class="text-3xl font-bold text-emerald-600 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
+                <p class="text-sm font-medium text-rose-600">إجمالي عليه (جنيه)</p>
+                <p id="totalAleih" class="text-3xl font-bold text-rose-600 mt-2">0</p>
+            </div>
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
+                <div>
+                    <p class="text-xs font-bold text-slate-400 mb-2">إجمالي التوزيع</p>
+                    <div class="flex justify-between items-center text-sm mb-2">
+                        <span class="text-emerald-800 font-extrabold text-base">على معتز:</span>
+                        <span id="totalMotaz" class="font-black text-emerald-700 text-lg">0</span>
+                    </div>
+                    <div class="flex justify-between items-center text-sm">
+                        <span class="text-indigo-900 font-extrabold text-base">على حمادة:</span>
+                        <span id="totalHamada" class="font-black text-indigo-700 text-lg">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Read-Only Details Modal -->
+    <div id="detailsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl border border-slate-200">
+            <h3 id="modalPersonName" class="text-2xl font-extrabold text-slate-900 mb-2">تفاصيل الحساب</h3>
+            <p class="text-sm text-slate-500 mb-6">المبالغ المسجلة الخاصة بـ معتز وحمادة</p>
+            
+            <div class="space-y-6">
+                <div>
+                    <label class="block text-xl font-black text-emerald-900 mb-2 tracking-wide">على معتز</label>
+                    <div id="motazDisplay" class="w-full px-5 py-4 bg-emerald-50/50 border-2 border-emerald-200 rounded-2xl text-2xl font-black text-emerald-700">0</div>
+                </div>
+                <div>
+                    <label class="block text-xl font-black text-indigo-900 mb-2 tracking-wide">على حمادة</label>
+                    <div id="hamadaDisplay" class="w-full px-5 py-4 bg-indigo-50/50 border-2 border-indigo-200 rounded-2xl text-2xl font-black text-indigo-700">0</div>
+                </div>
+                <div class="flex justify-end mt-8">
+                    <button type="button" onclick="closeDetailsModal()" class="px-8 py-3 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl font-semibold text-base transition">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let initialData = [
+            { name: "إبراهيم أحمد عيد (أبو علاء)", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
+            { name: "إبراهيم حامد الكناني", leh: 150, aleih: "-", motaz: 150, hamada: 0 },
+            { name: "إبراهيم حامد خلف", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "إبراهيم حامد عوض موسي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "إبراهيم زين عطية الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "إبراهيم صابر أبو العينين", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "أبو رؤوف (نسيب أحمد السيد)", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
+            { name: "أحمد أحمد إبراهيم عيد (أبو مالك)", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
+            { name: "احمد السيد أبو الفتوح الدشتي", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
+            { name: "احمد الصفصافي كشك", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
+            { name: "أحمد بلال جمعة جبل", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "أحمد جمعة أحمد سعدة", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
+            { name: "احمد حازم سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد حامد سلامة", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "أحمد حسين محمد وفا", leh: 5, aleih: "-", motaz: 5, hamada: 0 },
+            { name: "أحمد ربيع الموافي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "أحمد ربيع فهيم بر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد رجب غزي - الناصرية", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
+            { name: "أحمد رمضان الحسيني سعدة", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
+            { name: "أحمد سعد عبد الرحمن عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد سعد محمود عيد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
+            { name: "أحمد عبد الحنان الحداد", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
+            { name: "أحمد عبد العزيز العزبي", leh: 130, aleih: "-", motaz: 100, hamada: 30 },
+            { name: "أحمد عبد الله الشكشاكي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "أحمد عبد الله عبد البديع موسى", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
+            { name: "أحمد عطية عبد اللطيف الدشتي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "أحمد فاروق موسى", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "أحمد فوزي أحمد سعده", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
+            { name: "أحمد مجدي عبد السلام عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد محمد بلال الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد محمد حسن أبو سمرة", leh: 20, aleih: "-", motaz: 20, hamada: 0 },
+            { name: "أحمد محمد عيد", leh: 10, aleih: "-", motaz: 0, hamada: 10 },
+            { name: "أحمد محمد محمود عبد الله", leh: 600, aleih: "-", motaz: 600, hamada: 0 },
+            { name: "احمد محمد منتصر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أحمد محمود عوض الله سلامة", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
+            { name: "أحمد نبيل أبو الهدي الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أسامة عبد العزيز زيد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
+            { name: "أسعد أحمد عابد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أسعد عبد الباري الشرقاوي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أسعد عبد المعطي خليل", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "إسماعيل توفيق المتولي", leh: 200, aleih: "-", motaz: 100, hamada: 100 },
+            { name: "أشرف بلال سعد عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أشرف رشاد الدشتي", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
+            { name: "أشرف عطية عبد الحميد زينب", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
+            { name: "أمير الإتربي عيد", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "أنور محمد الشربيني سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "ايمن أحمد عبد الشافي سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أيمن الغريب سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "أيمن ربيع سلامة", leh: 1150, aleih: "-", motaz: 500, hamada: 650 },
+            { name: "أيمن عبد الفتاح عيد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
+            { name: "أيمن عز الدين كشك", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "أيمن فهيم بر", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
+            { name: "أيمن محمد علي موسي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "إيهاب أبو سمرة غالي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "إيهاب نظمي البصراطي", leh: 70, aleih: "-", motaz: 50, hamada: 20 },
+            { name: "بدرية محمد الدشتي", leh: 300, aleih: "-", motaz: 200, hamada: 100 },
+            { name: "البدوي فايز المنزلاوي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "بلال إبراهيم جاد رزق", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "بلال الصديق سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "بلال عبد الرحمن الأجاوي", leh: 85, aleih: "-", motaz: 50, hamada: 35 },
+            { name: "تامر محمد عبد الباري سلامة", leh: 250, aleih: "-", motaz: 100, hamada: 150 },
+            { name: "جاد أنور عابد", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
+            { name: "جمال السيد رضوان", leh: 90, aleih: "-", motaz: 70, hamada: 20 },
+            { name: "جمال عبد الله سعيد", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
+            { name: "جمال محمد رزق المنزلاوي", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
+            { name: "الجميل بلال الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
+        ];
+
+        let data = JSON.parse(localStorage.getItem('ledgerDataBottomTotalsV6')) || initialData;
+
+        data.forEach(item => {
+            if (item.motaz === undefined) item.motaz = 0;
+            if (item.hamada === undefined) item.hamada = 0;
+        });
+
+        function normalizeFirstLetter(char) {
+            if (!char) return '';
+            let c = char.trim();
+            if (/^[أإآآل]/.test(c) || c.startsWith('ال')) {
+                return 'ا';
+            }
+            return c.charAt(0);
+        }
+
+        function sortData() {
+            data.sort((a, b) => {
+                let charA = normalizeFirstLetter(a.name);
+                let charB = normalizeFirstLetter(b.name);
+                return charA.localeCompare(charB, 'ar');
+            });
+        }
+
+        function renderTable(filteredData = null) {
+            sortData();
+            const currentList = filteredData || data;
+            const tbody = document.getElementById('dataTableBody');
+            tbody.innerHTML = '';
+
+            let sumLeh = 0;
+            let sumAleih = 0;
+            let sumMotaz = 0;
+            let sumHamada = 0;
+
+            data.forEach((item) => {
+                if (item.leh !== "-" && !isNaN(item.leh)) sumLeh += Number(item.leh);
+                if (item.aleih !== "-" && !isNaN(item.aleih)) sumAleih += Number(item.aleih);
+                sumMotaz += Number(item.motaz || 0);
+                sumHamada += Number(item.hamada || 0);
+            });
+
+            currentList.forEach((item, index) => {
+                const globalIndex = data.findIndex(d => d.name === item.name);
+
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-slate-50 transition duration-150 border-b border-slate-100 cursor-pointer";
+                tr.onclick = () => openDetailsModal(globalIndex);
+                
+                tr.innerHTML = `
+                    <td class="py-3 px-6 text-slate-500 font-medium">${index + 1}</td>
+                    <td class="py-3 px-6 font-semibold text-slate-900">${item.name}</td>
+                    <td class="py-3 px-6 text-emerald-600 font-bold">${item.leh}</td>
+                    <td class="py-3 px-6 text-rose-600 font-bold">${item.aleih}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('totalNames').innerText = data.length;
+            document.getElementById('totalLeh').innerText = sumLeh.toLocaleString('en-US');
+            document.getElementById('totalAleih').innerText = sumAleih.toLocaleString('en-US');
+            document.getElementById('totalMotaz').innerText = sumMotaz.toLocaleString('en-US');
+            document.getElementById('totalHamada').innerText = sumHamada.toLocaleString('en-US');
+            document.getElementById('resultsCount').innerText = `عرض ${currentList.length} من أصل ${data.length} اسم`;
+        }
+
+        function filterTable() {
+            const query = document.getElementById('searchInput').value.trim();
+            const filtered = data.filter(item => item.name.includes(query));
+            renderTable(filtered);
+        }
+
+        function openDetailsModal(index) {
+            let sortedList = [...data];
+            sortedList.sort((a, b) => {
+                let charA = normalizeFirstLetter(a.name);
+                let charB = normalizeFirstLetter(b.name);
+                return charA.localeCompare(charB, 'ar');
+            });
+
+            const item = sortedList[index];
+            document.getElementById('modalPersonName').innerText = item.name;
+            document.getElementById('motazDisplay').innerText = (item.motaz || 0).toLocaleString('en-US');
+            document.getElementById('hamadaDisplay').innerText = (item.hamada || 0).toLocaleString('en-US');
+
+            document.getElementById('detailsModal').classList.remove('hidden');
+            document.getElementById('detailsModal').classList.add('flex');
+        }
+
+        function closeDetailsModal() {
+            document.getElementById('detailsModal').classList.remove('flex');
+            document.getElementById('detailsModal').classList.add('hidden');
+        }
+
+        window.onload = function() {
+            renderTable();
+        };
+    </script>
+</body>
+</html>
+
