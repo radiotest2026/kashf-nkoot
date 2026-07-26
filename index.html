@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
-                    <p class="text-sm text-slate-500 mt-0.5">عرض كافة الأسماء والمبالغ بدقة</p>
+                    <p class="text-sm text-slate-500 mt-0.5">عرض كافة الأسماء والمبالغ بدقة تامة ومصححة</p>
                 </div>
             </div>
         </header>
@@ -211,7 +211,7 @@
             { name: "حازم محمد سعده", leh: 90, aleih: "-", motaz: 50, hamada: 40 },
             { name: "حامد أحمد نعمان", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "حامد حسن صابر عبد الحافظ", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "حامد ربيع سلامة", leh: 3000, aleih: "-", motaz: 1000, hamada: 2000 },
+            { name: "حامد رباح سلام", leh: 3000, aleih: "-", motaz: 1000, hamada: 2000 },
             { name: "حامد نصر البنا", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "حسام السيد أبو الفتوح الدشتي", leh: 450, aleih: "-", motaz: 200, hamada: 250 },
             { name: "حسن محمد غالي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
@@ -221,10 +221,32 @@
             { name: "حمادة حسن يوسف", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "حمادة رمزي الصعب", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "حمادة عبد السلام جمعة", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
-            { name: "حمادة عرفان الوصيف", leh: 50, aleih: "-", motaz: 50, hamada: 0 }
+            { name: "حمادة عرفان الوصيف", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حمادة عوض محمد عوض موسى", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
+            { name: "حمادة فتحي فايز المنزلاوي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حمادة محمود زاهر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حمادة موسي الشرقاوي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "حمدي أمين الخضري", leh: 10, aleih: "-", motaz: 0, hamada: 10 },
+            { name: "حمدي بلال الدشتي", leh: 250, aleih: "-", motaz: 250, hamada: 0 },
+            { name: "حمدي حامد الكناني", leh: 80, aleih: "-", motaz: 50, hamada: 30 },
+            { name: "حمدي ربيع شعيبة", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حمدي عبد المعطي الدشتي", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
+            { name: "خالد صديق الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "خالد محمود الشهاوي", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
+            { name: "خضر أبو الفتوح الدشتي", leh: 1100, aleih: "-", motaz: 500, hamada: 600 },
+            { name: "خضر علي أبو النجا", leh: "-", aleih: 200, motaz: 0, hamada: 0 },
+            { name: "الدسوقي محمد الصيري", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "الدسوقي محمد زيادة", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "راضي حامد الكناني", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
+            { name: "راضي عطية إبراهيم عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "راضي محمد غالي", leh: 200, aleih: "-", motaz: 100, hamada: 100 },
+            { name: "رامي السيد اللاوندي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "رامي السيد سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "ربيع حامد محمد الدشتي", leh: 80, aleih: "-", motaz: 50, hamada: 30 },
+            { name: "ربيع عبد الحميد سعده", leh: 20, aleih: "-", motaz: 0, hamada: 20 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataAllFixedV30')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataHamdiBilalCorrectedV35')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
