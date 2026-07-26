@@ -5,45 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>كشف نقوط</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Cairo', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Cairo', 'sans-serif'] },
                     keyframes: {
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' },
-                            '50%': { transform: 'translateY(-6px) rotate(2deg)' },
-                        },
-                        pulseGlow: {
-                            '0%, 100%': { opacity: '1', transform: 'scale(1)' },
-                            '50%': { opacity: '0.8', transform: 'scale(1.05)' },
-                        }
+                        float: { '0%, 100%': { transform: 'translateY(0px) rotate(0deg)' }, '50%': { transform: 'translateY(-6px) rotate(2deg)' } },
+                        pulseGlow: { '0%, 100%': { opacity: '1', transform: 'scale(1)' }, '50%': { opacity: '0.8', transform: 'scale(1.05)' } }
                     },
-                    animation: {
-                        float: 'float 3s ease-in-out infinite',
-                        pulseGlow: 'pulseGlow 2.5s ease-in-out infinite',
-                    }
+                    animation: { float: 'float 3s ease-in-out infinite', pulseGlow: 'pulseGlow 2.5s ease-in-out infinite' }
                 }
             }
         }
     </script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-        body { font-family: 'Cairo', sans-serif; }
-    </style>
+    <style> body { font-family: 'Cairo', sans-serif; } </style>
 </head>
 <body class="bg-gradient-to-br from-slate-50 to-slate-100 min-h-screen text-slate-800">
-
     <div class="max-w-7xl mx-auto px-4 py-8">
-        <!-- Header with Animated Logo -->
         <header class="bg-white shadow-sm rounded-2xl p-6 mb-8 border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <!-- Animated Ledger Logo -->
                 <div class="relative w-14 h-14 bg-gradient-to-tr from-emerald-600 to-teal-500 rounded-2xl shadow-md flex items-center justify-center animate-float overflow-hidden">
                     <div class="absolute inset-0 bg-white/10 animate-pulseGlow"></div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -57,7 +40,6 @@
             </div>
         </header>
 
-        <!-- Search and Filter Bar -->
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="relative w-full md:w-96">
                 <input type="text" id="searchInput" oninput="filterTable()" placeholder="ابحث بأي كلمات من الاسم..." class="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
@@ -68,7 +50,6 @@
             <div class="text-sm text-slate-500" id="resultsCount">عرض جميع النتائج</div>
         </div>
 
-        <!-- Table Container -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden mb-8">
             <div class="overflow-x-auto">
                 <table class="w-full text-right border-collapse">
@@ -80,14 +61,11 @@
                             <th class="py-4 px-6">عليه (جنيه)</th>
                         </tr>
                     </thead>
-                    <tbody id="dataTableBody" class="divide-y divide-slate-100 text-sm">
-                        <!-- Data will be populated via JS -->
-                    </tbody>
+                    <tbody id="dataTableBody" class="divide-y divide-slate-100 text-sm"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- Stats / Summary Cards (Bottom) -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200">
                 <p class="text-sm font-medium text-slate-500">إجمالي عدد الأسماء</p>
@@ -104,25 +82,33 @@
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 flex flex-col justify-between">
                 <div>
                     <p class="text-xs font-bold text-slate-400 mb-2">إجمالي التوزيع</p>
-                    <div class="flex justify-between items-center text-sm mb-2">
-                        <span class="text-emerald-800 font-extrabold text-base">معتز / السعيد:</span>
-                        <span id="totalMotaz" class="font-black text-emerald-700 text-lg">0</span>
+                    <div class="flex justify-between items-center text-sm mb-1">
+                        <span class="text-emerald-800 font-extrabold text-xs">معتز (عليه):</span>
+                        <span id="totalMotazLeh" class="font-black text-emerald-700 text-sm">0</span>
                     </div>
-                    <div class="flex justify-between items-center text-sm">
-                        <span class="text-indigo-900 font-extrabold text-base">حمادة:</span>
-                        <span id="totalHamada" class="font-black text-indigo-700 text-lg">0</span>
+                    <div class="flex justify-between items-center text-sm mb-2">
+                        <span class="text-indigo-900 font-extrabold text-xs">حمادة (عليه):</span>
+                        <span id="totalHamadaLeh" class="font-black text-indigo-700 text-sm">0</span>
+                    </div>
+                    <div class="border-t border-slate-100 pt-1.5 mt-1">
+                        <div class="flex justify-between items-center text-sm mb-1">
+                            <span class="text-amber-800 font-extrabold text-xs">السعيد (له):</span>
+                            <span id="totalSaeedAleih" class="font-black text-amber-700 text-sm">0</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-rose-900 font-extrabold text-xs">حمادة (له):</span>
+                            <span id="totalHamadaAleih" class="font-black text-rose-700 text-sm">0</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Read-Only Details Modal -->
     <div id="detailsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl border border-slate-200">
             <h3 id="modalPersonName" class="text-2xl font-extrabold text-slate-900 mb-2">تفاصيل الحساب</h3>
             <p id="modalSubTitle" class="text-sm text-slate-500 mb-6">تفاصيل المبالغ</p>
-            
             <div class="space-y-6">
                 <div>
                     <label id="labelField1" class="block text-xl font-black text-emerald-900 mb-2 tracking-wide">حساب معتز</label>
@@ -140,7 +126,7 @@
     </div>
 
     <script>
-        let initialData = [
+        const initialData = [
             { name: "ابراهيم أحمد عيد (أبو علاء)", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "ابراهيم حامد الكناني", leh: 150, aleih: "-", motaz: 150, hamada: 0 },
             { name: "ابراهيم حامد خلف", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
@@ -299,7 +285,7 @@
             { name: "شعبان عبد السلام حشيش", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "شعبان عبد المعطي خليل", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
             { name: "صابر محمود عوض الله سلامة", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
-            { name: "صالح حسن عطية", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "ص صالح حسن عطية", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "صبري التابعي الخضري", leh: 200, aleih: "-", motaz: 150, hamada: 50 },
             { name: "صبري سعد الشرقاوي", leh: 150, aleih: "-", motaz: 150, hamada: 0 },
             { name: "صبري عويس زينب", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
@@ -464,7 +450,7 @@
             { name: "احمد البكري الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataFinalCommittedV77')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataFinalCommittedV80')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
@@ -501,20 +487,13 @@
 
         function normalizeText(text) {
             if (!text) return '';
-            return text
-                .toLowerCase()
-                .replace(/[أإآا]/g, 'ا')
-                .replace(/ة/g, 'ه')
-                .replace(/ى/g, 'ي')
-                .trim();
+            return text.toLowerCase().replace(/[أإآا]/g, 'ا').replace(/ة/g, 'ه').replace(/ى/g, 'ي').trim();
         }
 
         function normalizeFirstLetter(char) {
             if (!char) return '';
             let c = char.trim();
-            if (/^[أإآاآل]/.test(c) || c.startsWith('ال')) {
-                return 'ا';
-            }
+            if (/^[أإآاآل]/.test(c) || c.startsWith('ال')) return 'ا';
             return c.charAt(0);
         }
 
@@ -534,19 +513,28 @@
 
             let sumLeh = 0;
             let sumAleih = 0;
-            let sumMotaz = 0;
-            let sumHamada = 0;
+            let sumMotazLeh = 0;
+            let sumHamadaLeh = 0;
+            let sumSaeedAleih = 0;
+            let sumHamadaAleih = 0;
 
             data.forEach((item) => {
-                if (item.leh !== "-" && !isNaN(item.leh)) sumLeh += Number(item.leh);
-                if (item.aleih !== "-" && !isNaN(item.aleih)) sumAleih += Number(item.aleih);
-                sumMotaz += Number(item.motaz || 0);
-                sumHamada += Number(item.hamada || 0);
+                const hasLeh = item.leh !== "-" && !isNaN(item.leh) && Number(item.leh) > 0;
+                if (hasLeh) {
+                    sumLeh += Number(item.leh);
+                    sumMotazLeh += Number(item.motaz || 0);
+                    sumHamadaLeh += Number(item.hamada || 0);
+                }
+                const hasAleih = item.aleih !== "-" && !isNaN(item.aleih) && Number(item.aleih) > 0;
+                if (hasAleih) {
+                    sumAleih += Number(item.aleih);
+                    sumSaeedAleih += Number(item.motaz || 0);
+                    sumHamadaAleih += Number(item.hamada || 0);
+                }
             });
 
             currentList.forEach((item, index) => {
                 const globalIndex = data.findIndex(d => d.name === item.name);
-
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50 transition duration-150 border-b border-slate-100 cursor-pointer";
                 tr.onclick = () => openDetailsModal(globalIndex);
@@ -563,8 +551,13 @@
             document.getElementById('totalNames').innerText = data.length;
             document.getElementById('totalLeh').innerText = sumLeh.toLocaleString('en-US');
             document.getElementById('totalAleih').innerText = sumAleih.toLocaleString('en-US');
-            document.getElementById('totalMotaz').innerText = sumMotaz.toLocaleString('en-US');
-            document.getElementById('totalHamada').innerText = sumHamada.toLocaleString('en-US');
+            
+            // تحديث بطاقات إجمالي التوزيع بالعناوين والمبالغ الدقيقة كما طلبت تماماً
+            document.getElementById('totalMotazLeh').innerText = sumMotazLeh.toLocaleString('en-US');
+            document.getElementById('totalHamadaLeh').innerText = sumHamadaLeh.toLocaleString('en-US');
+            document.getElementById('totalSaeedAleih').innerText = sumSaeedAleih.toLocaleString('en-US');
+            document.getElementById('totalHamadaAleih').innerText = sumHamadaAleih.toLocaleString('en-US');
+
             document.getElementById('resultsCount').innerText = `عرض ${currentList.length} من أصل ${data.length} اسم`;
         }
 
@@ -599,12 +592,12 @@
             
             if (hasLeh) {
                 document.getElementById('modalSubTitle').innerText = "المبالغ المسجلة الخاصة بـ معتز وحمادة";
-                document.getElementById('labelField1').innerText = "على معتز";
-                document.getElementById('labelField2').innerText = "على حمادة";
+                document.getElementById('labelField1').innerText = "معتز (عليه)";
+                document.getElementById('labelField2').innerText = "حمادة (عليه)";
             } else {
                 document.getElementById('modalSubTitle').innerText = "المبالغ المسجلة الخاصة بـ السعيد وحمادة";
-                document.getElementById('labelField1').innerText = "حساب السعيد";
-                document.getElementById('labelField2').innerText = "حساب حمادة";
+                document.getElementById('labelField1').innerText = "السعيد (له)";
+                document.getElementById('labelField2').innerText = "حمادة (له)";
             }
 
             document.getElementById('motazDisplay').innerText = (item.motaz || 0).toLocaleString('en-US');
