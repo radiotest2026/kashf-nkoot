@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
-                    <p class="text-sm text-slate-500 mt-0.5">معاينة الكشف المعتمد بالكامل</p>
+                    <p class="text-sm text-slate-500 mt-0.5">الكشف النهائي والمثبت بالكامل</p>
                 </div>
             </div>
         </header>
@@ -211,7 +211,7 @@
             { name: "حازم محمد سعده", leh: 90, aleih: "-", motaz: 50, hamada: 40 },
             { name: "حامد أحمد نعمان", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "حامد حسن صابر عبد الحافظ", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "حامد رباح سلام", leh: 3000, aleih: "-", motaz: 1000, hamada: 2000 },
+            { name: "حامد ربيع سلامة", leh: 3000, aleih: "-", motaz: 1000, hamada: 2000 },
             { name: "حامد نصر البنا", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "حسام السيد أبو الفتوح الدشتي", leh: 450, aleih: "-", motaz: 200, hamada: 250 },
             { name: "حسن محمد غالي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
@@ -282,7 +282,7 @@
             { name: "السيد عبد المعطي الدشتي", leh: 150, aleih: "-", motaz: 150, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataCommittedFinalV44')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataFixedHamedRabieFinalV45')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
