@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
-                    <p class="text-sm text-slate-500 mt-0.5">عرض كافة الأسماء والمبالغ بدقة تامة ومصححة</p>
+                    <p class="text-sm text-slate-500 mt-0.5">معاينة الكشف المعتمد بالكامل</p>
                 </div>
             </div>
         </header>
@@ -261,10 +261,28 @@
             { name: "زين عزوز العجواني", leh: "-", aleih: 150, motaz: 0, hamada: 0 },
             { name: "سعد جاد منتصر", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
             { name: "سعد رزق المنزلاوي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
-            { name: "سعد عبد المغني عوض الله سلامة", leh: 50, aleih: "-", motaz: 0, hamada: 50 }
+            { name: "سعد عبد المغني عوض الله سلامة", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "سعد عوض عابد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "السعيد ربيع البنا", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
+            { name: "سفيان عبد الوهاب وفا", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "سمعان عبد العزيز البريشي", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
+            { name: "سمير رجب حسانين", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
+            { name: "سمير شحاتة الطنطاوي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "سمير لبيب الدشتي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "سمير محمد العزبي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "سمير محمود عوض الله سلامة", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "السيد أبو الفتوح الدشتي", leh: 550, aleih: "-", motaz: 300, hamada: 250 },
+            { name: "السيد أبو المعاطي جمعة", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
+            { name: "السيد البدوي خلف", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
+            { name: "السيد الشربيني عبد الرؤوف خلف", leh: 70, aleih: "-", motaz: 70, hamada: 0 },
+            { name: "السيد حمدان الدشتي", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
+            { name: "السيد سادات سعده", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "السيد عبد الرؤوف نايل الشرقاوي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "السيد عبد الله موسي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "السيد عبد المعطي الدشتي", leh: 150, aleih: "-", motaz: 150, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataZahirCorrectedV40')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataCommittedFinalV44')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
