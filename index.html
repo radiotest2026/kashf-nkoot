@@ -52,7 +52,7 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
-                    <p class="text-sm text-slate-500 mt-0.5">عرض الأسماء والمبالغ (بحث ذكي ومرن بالكلمات)</p>
+                    <p class="text-sm text-slate-500 mt-0.5">عرض كافة الأسماء والمبالغ بدقة</p>
                 </div>
             </div>
         </header>
@@ -60,7 +60,7 @@
         <!-- Search and Filter Bar -->
         <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-200 mb-6 flex flex-col md:flex-row gap-4 items-center justify-between">
             <div class="relative w-full md:w-96">
-                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ابحث بأي كلمات من الاسم (مثل: أحمد عيد)..." class="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+                <input type="text" id="searchInput" oninput="filterTable()" placeholder="ابحث بأي كلمات من الاسم..." class="w-full pl-4 pr-10 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-slate-400 absolute right-3 top-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                 </svg>
@@ -169,7 +169,7 @@
             { name: "احمد عطية عبد اللطيف الدشتي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
             { name: "احمد فاروق موسى", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "احمد فوزي أحمد سعده", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
-            { name: "احمد مجدي عبد السلام عيد", leh: 50, aleih: "-", motaz: 0, hamada: 0 },
+            { name: "احمد مجدي عبد السلام عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "احمد محمد بلال الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "احمد محمد حسن أبو سمرة", leh: 20, aleih: "-", motaz: 20, hamada: 0 },
             { name: "احمد محمد عيد", leh: 10, aleih: "-", motaz: 0, hamada: 10 },
@@ -206,10 +206,25 @@
             { name: "جمال السيد رضوان", leh: 90, aleih: "-", motaz: 70, hamada: 20 },
             { name: "جمال عبد الله سعيد", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "جمال محمد رزق المنزلاوي", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
-            { name: "الجميل بلال الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
+            { name: "الجميل بلال الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
+            { name: "حاتم وجدي الموافي", leh: 80, aleih: "-", motaz: 50, hamada: 30 },
+            { name: "حازم محمد سعده", leh: 90, aleih: "-", motaz: 50, hamada: 40 },
+            { name: "حامد أحمد نعمان", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حامد حسن صابر عبد الحافظ", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "حامد ربيع سلامة", leh: 3000, aleih: "-", motaz: 1000, hamada: 2000 },
+            { name: "حامد نصر البنا", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "حسام السيد أبو الفتوح الدشتي", leh: 450, aleih: "-", motaz: 200, hamada: 250 },
+            { name: "حسن محمد غالي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "حسن محمود عبد الحافظ زينب", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حسين محمد رمضان", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "حمادة أحمد محمد الدشتي", leh: 40, aleih: "-", motaz: 20, hamada: 20 },
+            { name: "حمادة حسن يوسف", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
+            { name: "حمادة رمزي الصعب", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
+            { name: "حمادة عبد السلام جمعة", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "حمادة عرفان الوصيف", leh: 50, aleih: "-", motaz: 50, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataMultiWordSearchV13')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataAllFixedV30')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
@@ -296,7 +311,6 @@
 
             const filtered = data.filter(item => {
                 const normalizedItemName = normalizeText(item.name);
-                // Check if all words entered by user exist anywhere in the person's full name
                 return queryWords.every(word => normalizedItemName.includes(word));
             });
             renderTable(filtered);
@@ -320,7 +334,6 @@
         }
 
         function closeDetailsModal() {
-            document.getElementById('detailsModal').classList.remove('hidden');
             document.getElementById('detailsModal').classList.remove('flex');
             document.getElementById('detailsModal').classList.add('hidden');
         }
