@@ -105,11 +105,11 @@
                 <div>
                     <p class="text-xs font-bold text-slate-400 mb-2">إجمالي التوزيع</p>
                     <div class="flex justify-between items-center text-sm mb-2">
-                        <span class="text-emerald-800 font-extrabold text-base">على معتز:</span>
+                        <span class="text-emerald-800 font-extrabold text-base">معتز / السعيد:</span>
                         <span id="totalMotaz" class="font-black text-emerald-700 text-lg">0</span>
                     </div>
                     <div class="flex justify-between items-center text-sm">
-                        <span class="text-indigo-900 font-extrabold text-base">على حمادة:</span>
+                        <span class="text-indigo-900 font-extrabold text-base">حمادة:</span>
                         <span id="totalHamada" class="font-black text-indigo-700 text-lg">0</span>
                     </div>
                 </div>
@@ -121,15 +121,15 @@
     <div id="detailsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl border border-slate-200">
             <h3 id="modalPersonName" class="text-2xl font-extrabold text-slate-900 mb-2">تفاصيل الحساب</h3>
-            <p class="text-sm text-slate-500 mb-6">المبالغ المسجلة الخاصة بـ معتز وحمادة</p>
+            <p id="modalSubTitle" class="text-sm text-slate-500 mb-6">تفاصيل المبالغ</p>
             
             <div class="space-y-6">
                 <div>
-                    <label class="block text-xl font-black text-emerald-900 mb-2 tracking-wide">على معتز</label>
+                    <label id="labelField1" class="block text-xl font-black text-emerald-900 mb-2 tracking-wide">نصيب معتز</label>
                     <div id="motazDisplay" class="w-full px-5 py-4 bg-emerald-50/50 border-2 border-emerald-200 rounded-2xl text-2xl font-black text-emerald-700">0</div>
                 </div>
                 <div>
-                    <label class="block text-xl font-black text-indigo-900 mb-2 tracking-wide">على حمادة</label>
+                    <label id="labelField2" class="block text-xl font-black text-indigo-900 mb-2 tracking-wide">نصيب حمادة</label>
                     <div id="hamadaDisplay" class="w-full px-5 py-4 bg-indigo-50/50 border-2 border-indigo-200 rounded-2xl text-2xl font-black text-indigo-700">0</div>
                 </div>
                 <div class="flex justify-end mt-8">
@@ -146,7 +146,7 @@
             { name: "ابراهيم حامد خلف", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "ابراهيم حامد عوض موسى", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "ابراهيم زين عطية الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "ابراهيم صابر أبو العينين", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "ابراهيم صابر أبو العينين", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "ابو رؤوف (نسيب أحمد السيد)", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
             { name: "احمد أحمد إبراهيم عيد (أبو مالك)", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
             { name: "احمد السيد أبو الفتوح الدشتي", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
@@ -154,9 +154,9 @@
             { name: "احمد بلال جمعة جبل", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "احمد جمعة أحمد سعدة", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "احمد حازم سعدة", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "احمد حامد سلامة", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "احمد حامد سلامة", leh: "-", aleih: 50, motaz: 0, hamada: 50 },
             { name: "احمد حسين محمد وفا", leh: 5, aleih: "-", motaz: 5, hamada: 0 },
-            { name: "احمد ربيع الموافي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "احمد ربيع الموافي", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "احمد ربيع فهيم بر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "احمد رجب غزي - الناصرية", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "احمد رمضان الحسيني سعدة", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
@@ -166,7 +166,7 @@
             { name: "احمد عبد العزيز العزبي", leh: 130, aleih: "-", motaz: 100, hamada: 30 },
             { name: "احمد عبد الله الشكشاكي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "احمد عبد الله عبد البديع موسى", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
-            { name: "احمد عطية عبد اللطيف الدشتي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "احمد عطية عبد اللطيف الدشتي", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "احمد فاروق موسى", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "احمد فوزي أحمد سعده", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "احمد مجدي عبد السلام عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
@@ -185,7 +185,7 @@
             { name: "اشرف بلال سعد عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "اشرف رشاد الدشتي", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
             { name: "اشرف عطية عبد الحميد زينب", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
-            { name: "امير الإتربي عيد", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "امير الإتربي عيد", leh: "-", aleih: 50, motaz: 0, hamada: 50 },
             { name: "انور محمد الشربيني سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "ايمن أحمد عبد الشافي سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "ايمن الغريب سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
@@ -194,10 +194,10 @@
             { name: "ايمن عز الدين كشك", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "ايمن فهيم بر", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "ايمن محمد علي موسي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "ايهاب أبو سمرة غالي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "ايهاب أبو سمرة غالي", leh: "-", aleih: 100, motaz: 100, hamada: 0 },
             { name: "ايهاب نظمي البصراطي", leh: 70, aleih: "-", motaz: 50, hamada: 20 },
             { name: "بدرية محمد الدشتي", leh: 300, aleih: "-", motaz: 200, hamada: 100 },
-            { name: "البدوي فايز المنزلاوي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "البدوي فايز المنزلاوي", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "بلال إبراهيم جاد رزق", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "بلال الصديق سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "بلال عبد الرحمن الأجاوي", leh: 85, aleih: "-", motaz: 50, hamada: 35 },
@@ -214,18 +214,18 @@
             { name: "حامد ربيع سلامة", leh: 3000, aleih: "-", motaz: 1000, hamada: 2000 },
             { name: "حامد نصر البنا", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "حسام السيد أبو الفتوح الدشتي", leh: 450, aleih: "-", motaz: 200, hamada: 250 },
-            { name: "حسن محمد غالي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "حسن محمد غالي", leh: "-", aleih: 100, motaz: 100, hamada: 0 },
             { name: "حسن محمود عبد الحافظ زينب", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "حسين محمد رمضان", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "حسين محمد رمضان", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "حمادة أحمد محمد الدشتي", leh: 40, aleih: "-", motaz: 20, hamada: 20 },
             { name: "حمادة حسن يوسف", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "حمادة رمزي الصعب", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "حمادة عبد السلام جمعة", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "حمادة عبد السلام جمعة", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "حمادة عرفان الوصيف", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "حمادة عوض محمد عوض موسى", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "حمادة فتحي فايز المنزلاوي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "حمادة محمود زاهر", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "حمادة موسي الشرقاوي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "حمادة موسي الشرقاوي", leh: "-", aleih: 50, motaz: 0, hamada: 50 },
             { name: "حمدي أمين الخضري", leh: 10, aleih: "-", motaz: 0, hamada: 10 },
             { name: "حمدي بلال الدشتي", leh: 250, aleih: "-", motaz: 250, hamada: 0 },
             { name: "حمدي حامد الكناني", leh: 80, aleih: "-", motaz: 50, hamada: 30 },
@@ -234,7 +234,7 @@
             { name: "خالد صديق الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "خالد محمود الشهاوي", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "خضر أبو الفتوح الدشتي", leh: 1100, aleih: "-", motaz: 500, hamada: 600 },
-            { name: "خضر علي أبو النجا", leh: "-", aleih: 200, motaz: 0, hamada: 0 },
+            { name: "خضر علي أبو النجا", leh: "-", aleih: 200, motaz: 0, hamada: 200 },
             { name: "الدسوقي محمد الصيري", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "الدسوقي محمد زيادة", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "راضي حامد الكناني", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
@@ -249,28 +249,28 @@
             { name: "رجب محمود عابد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "رزق السيد عبده", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
             { name: "رضا السيد داود", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "رضا المنسي الدشتي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "رضا المنسي الدشتي", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "رضا عبد الباري سلامة", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "رضا محمد إبراهيم صبح", leh: 130, aleih: "-", motaz: 100, hamada: 30 },
             { name: "رضا محمد حسن أبو سمرة", leh: 400, aleih: "-", motaz: 400, hamada: 0 },
-            { name: "رفقي محمود سعدة", leh: "-", aleih: 30, motaz: 0, hamada: 0 },
-            { name: "رمضان أحمد رمضان", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
-            { name: "رمضان حامد جبريل", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "رفقي محمود سعدة", leh: "-", aleih: 30, motaz: 30, hamada: 0 },
+            { name: "رمضان أحمد رمضان", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
+            { name: "رمضان حامد جبريل", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "زاهر محمد زاهر", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
-            { name: "زكريا إبراهيم حسين", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
-            { name: "زين عزوز العجواني", leh: "-", aleih: 150, motaz: 0, hamada: 0 },
+            { name: "زكريا إبراهيم حسين", leh: "-", aleih: 100, motaz: 50, hamada: 50 },
+            { name: "زين عزوز العجواني", leh: "-", aleih: 150, motaz: 150, hamada: 0 },
             { name: "سعد جاد منتصر", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
-            { name: "سعد رزق المنزلاوي", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "سعد رزق المنزلاوي", leh: "-", aleih: 100, motaz: 50, hamada: 50 },
             { name: "سعد عبد المغني عوض الله سلامة", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "سعد عوض عابد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "السعيد ربيع البنا", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
-            { name: "سفيان عبد الوهاب وفا", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "سفيان عبد الوهاب وفا", leh: "-", aleih: 50, motaz: 0, hamada: 50 },
             { name: "سمعان عبد العزيز البريشي", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
             { name: "سمير رجب حسانين", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "سمير شحاتة الطنطاوي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "سمير لبيب الدشتي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "سمير لبيب الدشتي", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "سمير محمد العزبي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "سمير محمود عوض الله سلامة", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "سمير محمود عوض الله سلامة", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "السيد أبو الفتوح الدشتي", leh: 550, aleih: "-", motaz: 300, hamada: 250 },
             { name: "السيد أبو المعاطي جمعة", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
             { name: "السيد البدوي خلف", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
@@ -283,14 +283,14 @@
             { name: "السيد عبد المغني عوض الله", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "السيد عبده عرفات", leh: 300, aleih: "-", motaz: 200, hamada: 100 },
             { name: "السيد عطية عبد اللطيف الدشتي", leh: 200, aleih: "-", motaz: 0, hamada: 200 },
-            { name: "السيد فريد عيد", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
-            { name: "السيد فهيم بر", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "السيد فريد عيد", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
+            { name: "السيد فهيم بر", leh: "-", aleih: 100, motaz: 100, hamada: 0 },
             { name: "السيد محمد خليفة", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "السيد مختار سعده", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "السيد مختار عبده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "شاهين الجميل بلال الدشتي", leh: 250, aleih: "-", motaz: 200, hamada: 50 },
             { name: "الشحات محمد حامد عوض الله", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
-            { name: "الشربيني الدسوقي اللاوندي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "الشربيني الدسوقي اللاوندي", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "الشربيني عبده الشربيني اللاوندي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "شريف بلال عبد الرازق جبل", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "شريف عبد الرؤوف المنزلاوي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
@@ -298,7 +298,7 @@
             { name: "شعبان أحمد عثمان نجاح", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "شعبان عبد السلام حشيش", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "شعبان عبد المعطي خليل", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
-            { name: "صابر محمود عوض الله سلامة", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "صابر محمود عوض الله سلامة", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "صالح حسن عطية", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "صبري التابعي الخضري", leh: 200, aleih: "-", motaz: 150, hamada: 50 },
             { name: "صبري سعد الشرقاوي", leh: 150, aleih: "-", motaz: 150, hamada: 0 },
@@ -306,18 +306,18 @@
             { name: "صبري محمد الصيري", leh: 260, aleih: "-", motaz: 200, hamada: 60 },
             { name: "صلاح فتحي الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "صلاح لبيب الوهيدي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "صلاح لطفي مشعل", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "صلاح لطفي مشعل", leh: "-", aleih: 100, motaz: 100, hamada: 0 },
             { name: "طارق بلال رضوان", leh: 70, aleih: "-", motaz: 50, hamada: 20 },
             { name: "طاهر بلال جبل", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "طاهر توفيق خليل", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
             { name: "عابد حامد الحداد", leh: 150, aleih: "-", motaz: 150, hamada: 0 },
-            { name: "عادل سعد حسانين", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "عادل سعد حسانين", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "عادل مختار سعده", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "عاطف محمد رمضان", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "عبادة عطية الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "عبد الرحيم العيسوي نصار", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "عبد الرحيم العيسوي نصار", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "عبد السلام الشحات المشد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
-            { name: "عبد اللطيف عبد الحنان الحداد", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "عبد اللطيف عبد الحنان الحداد", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "عبد الله أبو الأيود سعده", leh: 210, aleih: "-", motaz: 200, hamada: 10 },
             { name: "عبد الله أحمد جمال عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "عبد المغني حامد سلامة", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
@@ -326,17 +326,17 @@
             { name: "عبده حمادة عبد السلام", leh: 20, aleih: "-", motaz: 20, hamada: 0 },
             { name: "عبده محمد البغدادي (الناصرية)", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "عبده محمود زكي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "العربي أحمد عيد", leh: "-", aleih: 120, motaz: 0, hamada: 0 },
-            { name: "عزيز أحمد الإتربي داود", leh: "-", aleih: 10, motaz: 0, hamada: 0 },
+            { name: "العربي أحمد عيد", leh: "-", aleih: 120, motaz: 120, hamada: 0 },
+            { name: "عزيز أحمد الإتربي داود", leh: "-", aleih: 10, motaz: 10, hamada: 0 },
             { name: "عزيز الشبراوي النادي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "عزيز محمد البشبيشي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "عزيز محمد البشبيشي", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "عصام بلال بر", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
-            { name: "عصام زغلول الدشتي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "عصام زغلول الدشتي", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "عصام عمر عيد", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "عصام محمد البهنساوي", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "عصام محمد البهنساوي", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "عصام محمدين الشرقاوي", leh: 200, aleih: "-", motaz: 100, hamada: 100 },
-            { name: "عطية الدسوقي اللاوندي", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
-            { name: "عطية السيد رضوان", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "عطية الدسوقي اللاوندي", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
+            { name: "عطية السيد رضوان", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "عطية ربيع البنا", leh: 80, aleih: "-", motaz: 50, hamada: 30 },
             { name: "عطية محمد أحمد زاهر", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "علي محمد إبراهيم داود", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
@@ -346,21 +346,21 @@
             { name: "عوض سعد عوض عابد", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "عوض عبد المعطي الدشتي", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "عيد عبد المعطي الدشتي", leh: 70, aleih: "-", motaz: 50, hamada: 20 },
-            { name: "العيسوي عبد الرحيم العيسوي نصار", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
+            { name: "العيسوي عبد الرحيم العيسوي نصار", leh: "-", aleih: 100, motaz: 100, hamada: 0 },
             { name: "فتحي أبو الفتوح الدشتي", leh: 1050, aleih: "-", motaz: 500, hamada: 550 },
             { name: "فتحي السيد المتبولي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "فتحي رياض فتحي عامر", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "فتحي فهيم بر", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
             { name: "فتحي محمود الدشتي", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
-            { name: "فكري الشربيني داود", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "فكري الشربيني داود", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "فكري عبد الملك صبح", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
-            { name: "فكري عبده عرفات", leh: "-", aleih: 400, motaz: 0, hamada: 0 },
+            { name: "فكري عبده عرفات", leh: "-", aleih: 400, motaz: 200, hamada: 200 },
             { name: "فكري محمود جبل", leh: 20, aleih: "-", motaz: 0, hamada: 20 },
             { name: "فوزي صبري الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "قدري صديق الدشتي", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "قدري محمد المتبولي", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
             { name: "لطفي لطفي إبراهيم حسانين", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
-            { name: "لطفي محمود جبل", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "لطفي محمود جبل", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "ماهر السيد عبد الحنان الصيري", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
             { name: "ماهر عطية المرسي", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
             { name: "ماهر علي جاد منتصر", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
@@ -373,7 +373,7 @@
             { name: "محمد إبراهيم عبد الملك صبح", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "محمد أحمد المرسي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "محمد أحمد توفيق خليل", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "محمد الحسيني المتولي إبراهيم", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "محمد الحسيني المتولي إبراهيم", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "محمد الدسوقي زيادة", leh: 10, aleih: "-", motaz: 10, hamada: 0 },
             { name: "محمد السيد منتصر", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "محمد الشحات المتولي أبو كيلة", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
@@ -381,17 +381,17 @@
             { name: "محمد الشربيني عيد", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "محمد المحمدي (جد مها)", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "محمد المندوه موسي", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
-            { name: "محمد بلال الدشتي", leh: "-", aleih: 150, motaz: 0, hamada: 0 },
+            { name: "محمد بلال الدشتي", leh: "-", aleih: 150, motaz: 150, hamada: 0 },
             { name: "محمد جمعة محمود (أبو زياد)", leh: 600, aleih: "-", motaz: 600, hamada: 0 },
             { name: "محمد حسن عطية", leh: 100, aleih: "-", motaz: 0, hamada: 100 },
             { name: "محمد حلمي كشك", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "محمد حمدي بلال الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "محمد ربيع سلامة", leh: 650, aleih: "-", motaz: 400, hamada: 250 },
-            { name: "محمد ربيع منتصر", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "محمد ربيع منتصر", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "محمد رجب حسانين", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
             { name: "محمد زغلول الدشتي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "محمد سعد وفا", leh: 30, aleih: "-", motaz: 0, hamada: 30 },
-            { name: "محمد صابر أبو العينين", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "محمد صابر أبو العينين", leh: "-", aleih: 50, motaz: 50, hamada: 0 },
             { name: "محمد صديق الدشتي", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "محمد صلاح الشرقاوي", leh: 90, aleih: "-", motaz: 70, hamada: 20 },
             { name: "محمد عبد الحميد شعيبة", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
@@ -422,7 +422,7 @@
             { name: "محمود نعيم السيد (أبو مها)", leh: 400, aleih: "-", motaz: 400, hamada: 0 },
             { name: "محي عبد الرحمن الأجاوي", leh: 80, aleih: "-", motaz: 50, hamada: 30 },
             { name: "مسعد أحمد السعيد موسي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
-            { name: "مسعد الدسوقي زيادة", leh: "-", aleih: 50, motaz: 0, hamada: 0 },
+            { name: "مسعد الدسوقي زيادة", leh: "-", aleih: 50, motaz: 0, hamada: 50 },
             { name: "مسعد المنسي الدشتي", leh: 150, aleih: "-", motaz: 100, hamada: 50 },
             { name: "مصطفى أحمد عابد", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
             { name: "مصطفى عبد الرحمن الأجاوي", leh: 150, aleih: "-", motaz: 50, hamada: 100 },
@@ -432,8 +432,8 @@
             { name: "ممدوح مختار سعده", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
             { name: "المندوه فتحي عبد العزيز", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "ناصر رشاد الدشتي", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
-            { name: "ناصر عبد الرزاق شاكر", leh: "-", aleih: 100, motaz: 0, hamada: 0 },
-            { name: "ناصر محمد البدحي", leh: "-", aleih: 30, motaz: 0, hamada: 0 },
+            { name: "ناصر عبد الرزاق شاكر", leh: "-", aleih: 100, motaz: 100, hamada: 0 },
+            { name: "ناصر محمد البدحي", leh: "-", aleih: 30, motaz: 30, hamada: 0 },
             { name: "نبيل حلمي طه", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
             { name: "نبيل عبد السلام جمعة", leh: 30, aleih: "-", motaz: 30, hamada: 0 },
             { name: "نبيل محمد أحمد سعده", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
@@ -447,7 +447,7 @@
             { name: "هشام السيد المغازي زيد", leh: 10, aleih: "-", motaz: 10, hamada: 0 },
             { name: "هشام السيد عبد المغني سلامة", leh: 200, aleih: "-", motaz: 200, hamada: 0 },
             { name: "هشام صيوح", leh: 100, aleih: "-", motaz: 100, hamada: 0 },
-            { name: "هشام محمد عبد الباري سلامة", leh: "-", aleih: 20, motaz: 0, hamada: 0 },
+            { name: "هشام محمد عبد الباري سلامة", leh: "-", aleih: 20, motaz: 20, hamada: 0 },
             { name: "هشام محمود الشهاوي", leh: 50, aleih: "-", motaz: 50, hamada: 0 },
             { name: "وائل محمد عبد الحافظ عيد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
             { name: "وجدي عبد العزيز زيد", leh: 100, aleih: "-", motaz: 50, hamada: 50 },
@@ -460,15 +460,43 @@
             { name: "وهبة محمد حامد عبد الله", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
             { name: "ياسر الشربيني الدشتي", leh: 250, aleih: "-", motaz: 100, hamada: 150 },
             { name: "ياسر عطية محمود الصعب", leh: 50, aleih: "-", motaz: 0, hamada: 50 },
-            { name: "يحيى عبد الباري الشرقاوي", leh: "-", aleih: 200, motaz: 0, hamada: 0 },
+            { name: "يحيى عبد الباري الشرقاوي", leh: "-", aleih: 200, motaz: 200, hamada: 0 },
             { name: "احمد البكري الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataFinalCommittedV65')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataFinalCommittedV76')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
             if (item.hamada === undefined) item.hamada = 0;
+        });
+
+        const hamadaDebts = {
+            "احمد حامد سلامة": 50,
+            "زكريا إبراهيم حسين": 50,
+            "حمادة موسي الشرقاوي": 50,
+            "خضر علي أبو النجا": 200,
+            "فكري عبده عرفات": 200,
+            "محمود صابر عبد الحافظ زينب": 50,
+            "مسعد الدسوقي زيادة": 50,
+            "امير الإتربي عيد": 50,
+            "سفيان عبد الوهاب وفا": 50,
+            "حمادة رمزي الصعب": 100,
+            "سعد رزق المنزلاوي": 50
+        };
+
+        data.forEach(item => {
+            if (item.aleih !== "-" && !isNaN(item.aleih)) {
+                let totalAmount = Number(item.aleih);
+                if (hamadaDebts[item.name] !== undefined) {
+                    let hamadaPart = hamadaDebts[item.name];
+                    item.hamada = hamadaPart;
+                    item.motaz = totalAmount - hamadaPart;
+                } else {
+                    item.motaz = totalAmount;
+                    item.hamada = 0;
+                }
+            }
         });
 
         function normalizeText(text) {
@@ -564,8 +592,21 @@
                 return charA.localeCompare(charB, 'ar');
             });
 
-            const item = sortedList.index || sortedList[index];
+            const item = sortedList[index];
             document.getElementById('modalPersonName').innerText = item.name;
+
+            const hasLeh = item.leh !== "-" && !isNaN(item.leh) && Number(item.leh) > 0;
+            
+            if (hasLeh) {
+                document.getElementById('modalSubTitle').innerText = "المبالغ المسجلة الخاصة بـ معتز وحمادة";
+                document.getElementById('labelField1').innerText = "على معتز";
+                document.getElementById('labelField2').innerText = "على حمادة";
+            } else {
+                document.getElementById('modalSubTitle').innerText = "المبالغ المسجلة الخاصة بـ السعيد وحمادة";
+                document.getElementById('labelField1').innerText = "نصيب السعيد";
+                document.getElementById('labelField2').innerText = "نصيب حمادة";
+            }
+
             document.getElementById('motazDisplay').innerText = (item.motaz || 0).toLocaleString('en-US');
             document.getElementById('hamadaDisplay').innerText = (item.hamada || 0).toLocaleString('en-US');
 
