@@ -125,11 +125,11 @@
             
             <div class="space-y-6">
                 <div>
-                    <label id="labelField1" class="block text-xl font-black text-emerald-900 mb-2 tracking-wide">نصيب معتز</label>
+                    <label id="labelField1" class="block text-xl font-black text-emerald-900 mb-2 tracking-wide">حساب معتز</label>
                     <div id="motazDisplay" class="w-full px-5 py-4 bg-emerald-50/50 border-2 border-emerald-200 rounded-2xl text-2xl font-black text-emerald-700">0</div>
                 </div>
                 <div>
-                    <label id="labelField2" class="block text-xl font-black text-indigo-900 mb-2 tracking-wide">نصيب حمادة</label>
+                    <label id="labelField2" class="block text-xl font-black text-indigo-900 mb-2 tracking-wide">حساب حمادة</label>
                     <div id="hamadaDisplay" class="w-full px-5 py-4 bg-indigo-50/50 border-2 border-indigo-200 rounded-2xl text-2xl font-black text-indigo-700">0</div>
                 </div>
                 <div class="flex justify-end mt-8">
@@ -464,7 +464,7 @@
             { name: "احمد البكري الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
         ];
 
-        let data = JSON.parse(localStorage.getItem('ledgerDataFinalCommittedV76')) || initialData;
+        let data = JSON.parse(localStorage.getItem('ledgerDataFinalCommittedV77')) || initialData;
 
         data.forEach(item => {
             if (item.motaz === undefined) item.motaz = 0;
@@ -603,8 +603,8 @@
                 document.getElementById('labelField2').innerText = "على حمادة";
             } else {
                 document.getElementById('modalSubTitle').innerText = "المبالغ المسجلة الخاصة بـ السعيد وحمادة";
-                document.getElementById('labelField1').innerText = "نصيب السعيد";
-                document.getElementById('labelField2').innerText = "نصيب حمادة";
+                document.getElementById('labelField1').innerText = "حساب السعيد";
+                document.getElementById('labelField2').innerText = "حساب حمادة";
             }
 
             document.getElementById('motazDisplay').innerText = (item.motaz || 0).toLocaleString('en-US');
