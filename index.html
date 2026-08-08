@@ -26,7 +26,7 @@
     <div class="max-w-7xl mx-auto px-4 py-8">
         <header class="bg-white shadow-sm rounded-2xl p-6 mb-8 border border-slate-200 flex flex-col md:flex-row justify-between items-center gap-4">
             <div class="flex items-center gap-4">
-                <div class="relative w-14 h-14 bg-gradient-to-tr from-emerald-600 to-teal-500 rounded-2xl shadow-md flex items-center justify-center animate-float overflow-hidden">
+                <div id="logoContainer" class="relative w-14 h-14 bg-gradient-to-tr from-emerald-600 to-teal-500 rounded-2xl shadow-md flex items-center justify-center animate-float overflow-hidden cursor-pointer select-none" title="اضغط 5 مرات لفتح لوحة التحكم">
                     <div class="absolute inset-0 bg-white/10 animate-pulseGlow"></div>
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-white z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -104,6 +104,7 @@
         </div>
     </div>
 
+    <!-- نافذة تفاصيل الحساب -->
     <div id="detailsModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
         <div class="bg-white rounded-2xl max-w-lg w-full p-8 shadow-2xl border border-slate-200">
             <h3 id="modalPersonName" class="text-2xl font-extrabold text-slate-900 mb-2">تفاصيل الحساب</h3>
@@ -119,6 +120,116 @@
                 </div>
                 <div class="flex justify-end mt-8">
                     <button type="button" onclick="closeDetailsModal()" class="px-8 py-3 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl font-semibold text-base transition">إغلاق</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- نافذة كلمة المرور -->
+    <div id="passwordModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-slate-200 text-center">
+            <h3 class="text-xl font-extrabold text-slate-900 mb-2">لوحة التحكم</h3>
+            <p class="text-sm text-slate-500 mb-4">أدخل كلمة المرور المكونة من 3 أرقام</p>
+            <input type="password" id="passwordInput" maxlength="3" class="w-full text-center text-2xl tracking-widest py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 mb-4" placeholder="***">
+            <div id="passwordError" class="text-xs text-rose-600 mb-3 hidden">كلمة المرور غير صحيحة</div>
+            <div class="flex gap-3 justify-center">
+                <button type="button" onclick="verifyPassword()" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-sm transition">دخول</button>
+                <button type="button" onclick="closePasswordModal()" class="px-5 py-2.5 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl font-semibold text-sm transition">إلغاء</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- لوحة التحكم الرئيسية (إضافة + بحث وتعديل) -->
+    <div id="adminModal" class="fixed inset-0 bg-black/50 backdrop-blur-sm hidden items-center justify-center p-4 z-50">
+        <div class="bg-white rounded-2xl max-w-xl w-full p-8 shadow-2xl border border-slate-200 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-extrabold text-slate-900">لوحة الأدمن - إدارة الحسابات</h3>
+                <button onclick="closeAdminModal()" class="text-slate-400 hover:text-slate-600 font-bold text-xl">&times;</button>
+            </div>
+
+            <!-- تبويبات لوحة التحكم -->
+            <div class="flex border-b border-slate-200 mb-6">
+                <button onclick="switchAdminTab('add')" id="tabAddBtn" class="flex-1 py-2.5 font-bold text-sm text-emerald-600 border-b-2 border-emerald-600 transition">إضافة اسم جديد</button>
+                <button onclick="switchAdminTab('edit')" id="tabEditBtn" class="flex-1 py-2.5 font-bold text-sm text-slate-400 border-b-2 border-transparent transition">بحث وتعديل حساب موجود</button>
+            </div>
+
+            <!-- قسم 1: إضافة اسم جديد -->
+            <div id="adminSectionAdd">
+                <form id="adminForm" onsubmit="addNewRecord(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">اسم الشخص</label>
+                        <input type="text" id="adminName" required class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="أدخل اسم الشخص...">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">نوع المبلغ</label>
+                            <select id="adminType" onchange="updateAdminLabels()" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm">
+                                <option value="leh">له</option>
+                                <option value="aleih">عليه</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">المبلغ الإجمالي (جنيه)</label>
+                            <input type="number" id="adminAmount" required min="1" oninput="autoSplitAmount()" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label id="labelAdminShare1" class="block text-sm font-bold text-emerald-800 mb-1">حساب معتز</label>
+                            <input type="number" id="adminShare1" required min="0" class="w-full px-4 py-2.5 bg-emerald-50/50 border border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-bold text-emerald-700" placeholder="0">
+                        </div>
+                        <div>
+                            <label id="labelAdminShare2" class="block text-sm font-bold text-indigo-900 mb-1">حساب حمادة</label>
+                            <input type="number" id="adminShare2" required min="0" class="w-full px-4 py-2.5 bg-indigo-50/50 border border-emerald-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm font-bold text-indigo-700" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="flex justify-end gap-3 mt-8">
+                        <button type="submit" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-sm transition">إضافة الاسم وترتيبه</button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- قسم 2: بحث وتعديل حساب موجود -->
+            <div id="adminSectionEdit" class="hidden space-y-4">
+                <div>
+                    <label class="block text-sm font-bold text-slate-700 mb-1">بحث عن اسم للتعديل</label>
+                    <input type="text" id="adminSearchBox" oninput="filterAdminSearch()" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 text-sm" placeholder="اكتب اسم الشخص للبحث عنه...">
+                </div>
+                <div id="adminSearchResults" class="max-h-40 overflow-y-auto border border-slate-200 rounded-xl divide-y divide-slate-100 bg-slate-50/50 hidden"></div>
+
+                <div id="editRecordForm" class="space-y-4 hidden pt-4 border-t border-slate-200">
+                    <input type="hidden" id="editRecordIndex">
+                    <div>
+                        <label class="block text-sm font-bold text-slate-700 mb-1">اسم الشخص</label>
+                        <input type="text" id="editName" class="w-full px-4 py-2.5 bg-slate-100 border border-slate-200 rounded-xl text-sm font-semibold" readonly>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">نوع المبلغ</label>
+                            <select id="editType" onchange="updateEditLabels()" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm">
+                                <option value="leh">له</option>
+                                <option value="aleih">عليه</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-slate-700 mb-1">المبلغ الإجمالي (جنيه)</label>
+                            <input type="number" id="editAmount" min="0" oninput="autoSplitEditAmount()" class="w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl text-sm" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label id="labelEditShare1" class="block text-sm font-bold text-emerald-800 mb-1">حساب معتز</label>
+                            <input type="number" id="editShare1" min="0" class="w-full px-4 py-2.5 bg-emerald-50/50 border border-emerald-200 rounded-xl text-sm font-bold text-emerald-700" placeholder="0">
+                        </div>
+                        <div>
+                            <label id="labelEditShare2" class="block text-sm font-bold text-indigo-900 mb-1">حساب حمادة</label>
+                            <input type="number" id="editShare2" min="0" class="w-full px-4 py-2.5 bg-indigo-50/50 border border-emerald-200 rounded-xl text-sm font-bold text-indigo-700" placeholder="0">
+                        </div>
+                    </div>
+                    <div class="flex justify-between gap-3 pt-4">
+                        <button type="button" onclick="saveEditedRecord()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl font-semibold text-sm transition">حفظ التعديلات</button>
+                        <button type="button" onclick="deleteRecord()" class="px-6 py-2.5 bg-rose-600 hover:bg-rose-700 text-white rounded-xl font-semibold text-sm transition">حذف الاسم</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -467,6 +578,7 @@
             "سفيان عبد الوهاب وفا": 50,
             "حمادة رمزي الصعب": 100,
             "سعد رزق المنزلاوي": 50,
+            "عوض الحسيني الدشتي": 50,
             "قدري صديق الدشتي": 50
         };
 
@@ -608,6 +720,209 @@
         function closeDetailsModal() {
             document.getElementById('detailsModal').classList.remove('flex');
             document.getElementById('detailsModal').classList.add('hidden');
+        }
+
+        // منطق فتح لوحة التحكم بالضغط 5 مرات على اللوجو
+        let logoClickCount = 0;
+        let lastLogoClickTime = 0;
+
+        document.getElementById('logoContainer').addEventListener('click', () => {
+            const now = new Date().getTime();
+            if (now - lastLogoClickTime > 1500) {
+                logoClickCount = 1;
+            } else {
+                logoClickCount++;
+            }
+            lastLogoClickTime = now;
+
+            if (logoClickCount >= 5) {
+                logoClickCount = 0;
+                showPasswordModal();
+            }
+        });
+
+        function showPasswordModal() {
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordError').classList.add('hidden');
+            document.getElementById('passwordModal').classList.remove('hidden');
+            document.getElementById('passwordModal').classList.add('flex');
+        }
+
+        function closePasswordModal() {
+            document.getElementById('passwordModal').classList.remove('flex');
+            document.getElementById('passwordModal').classList.add('hidden');
+        }
+
+        function verifyPassword() {
+            const pass = document.getElementById('passwordInput').value;
+            if (pass === '108') {
+                closePasswordModal();
+                openAdminModal();
+            } else {
+                document.getElementById('passwordError').classList.remove('hidden');
+            }
+        }
+
+        function openAdminModal() {
+            document.getElementById('adminForm').reset();
+            switchAdminTab('add');
+            document.getElementById('adminModal').classList.remove('hidden');
+            document.getElementById('adminModal').classList.add('flex');
+        }
+
+        function closeAdminModal() {
+            document.getElementById('adminModal').classList.remove('flex');
+            document.getElementById('adminModal').classList.add('hidden');
+        }
+
+        function switchAdminTab(tab) {
+            const addBtn = document.getElementById('tabAddBtn');
+            const editBtn = document.getElementById('tabEditBtn');
+            const addSec = document.getElementById('adminSectionAdd');
+            const editSec = document.getElementById('adminSectionEdit');
+
+            if (tab === 'add') {
+                addBtn.className = "flex-1 py-2.5 font-bold text-sm text-emerald-600 border-b-2 border-emerald-600 transition";
+                editBtn.className = "flex-1 py-2.5 font-bold text-sm text-slate-400 border-b-2 border-transparent transition";
+                addSec.classList.remove('hidden');
+                editSec.classList.add('hidden');
+            } else {
+                editBtn.className = "flex-1 py-2.5 font-bold text-sm text-emerald-600 border-b-2 border-emerald-600 transition";
+                addBtn.className = "flex-1 py-2.5 font-bold text-sm text-slate-400 border-b-2 border-transparent transition";
+                editSec.classList.remove('hidden');
+                addSec.classList.add('hidden');
+                document.getElementById('adminSearchBox').value = '';
+                document.getElementById('adminSearchResults').classList.add('hidden');
+                document.getElementById('editRecordForm').classList.add('hidden');
+            }
+        }
+
+        function updateAdminLabels() {
+            const type = document.getElementById('adminType').value;
+            if (type === 'leh') {
+                document.getElementById('labelAdminShare1').innerText = "حساب معتز";
+            } else {
+                document.getElementById('labelAdminShare1').innerText = "حساب السعيد";
+            }
+            autoSplitAmount();
+        }
+
+        function autoSplitAmount() {
+            const amount = Number(document.getElementById('adminAmount').value) || 0;
+            document.getElementById('adminShare1').value = amount;
+            document.getElementById('adminShare2').value = 0;
+        }
+
+        function addNewRecord(event) {
+            event.preventDefault();
+            const name = document.getElementById('adminName').value.trim();
+            const type = document.getElementById('adminType').value;
+            const amount = Number(document.getElementById('adminAmount').value);
+            const share1 = Number(document.getElementById('adminShare1').value) || 0;
+            const share2 = Number(document.getElementById('adminShare2').value) || 0;
+
+            let newEntry = {
+                name: name,
+                leh: type === 'leh' ? amount : "-",
+                aleih: type === 'aleih' ? amount : "-",
+                motaz: share1,
+                hamada: share2
+            };
+
+            data.push(newEntry);
+            localStorage.setItem('ledgerDataFinalCommittedV80', JSON.stringify(data));
+
+            renderTable();
+            closeAdminModal();
+            alert("تم إضافة الاسم بنجاح وترتيبه أبجدياً!");
+        }
+
+        // منطق البحث والتعديل داخل لوحة الأدمن
+        function filterAdminSearch() {
+            const query = normalizeText(document.getElementById('adminSearchBox').value);
+            const resultsContainer = document.getElementById('adminSearchResults');
+            document.getElementById('editRecordForm').classList.add('hidden');
+
+            if (!query) {
+                resultsContainer.classList.add('hidden');
+                return;
+            }
+
+            const matched = data.map((item, idx) => ({ item, idx })).filter(d => normalizeText(d.item.name).includes(query));
+
+            if (matched.length === 0) {
+                resultsContainer.innerHTML = '<div class="p-3 text-sm text-slate-500 text-center">لا توجد نتائج مطابقة</div>';
+                resultsContainer.classList.remove('hidden');
+                return;
+            }
+
+            let html = '';
+            matched.forEach(match => {
+                html += `<div onclick="loadRecordForEdit(${match.idx})" class="p-3 text-sm font-semibold hover:bg-emerald-50 cursor-pointer transition">${match.item.name}</div>`;
+            });
+            resultsContainer.innerHTML = html;
+            resultsContainer.classList.remove('hidden');
+        }
+
+        function loadRecordForEdit(index) {
+            const record = data[index];
+            document.getElementById('adminSearchResults').classList.add('hidden');
+            document.getElementById('adminSearchBox').value = record.name;
+            document.getElementById('editRecordIndex').value = index;
+            document.getElementById('editName').value = record.name;
+
+            const isLeh = record.leh !== "-" && Number(record.leh) > 0;
+            document.getElementById('editType').value = isLeh ? 'leh' : 'aleih';
+            document.getElementById('editAmount').value = isLeh ? record.leh : record.aleih;
+            document.getElementById('editShare1').value = record.motaz;
+            document.getElementById('editShare2').value = record.hamada;
+
+            updateEditLabels();
+            document.getElementById('editRecordForm').classList.remove('hidden');
+        }
+
+        function updateEditLabels() {
+            const type = document.getElementById('editType').value;
+            if (type === 'leh') {
+                document.getElementById('labelEditShare1').innerText = "حساب معتز (عليه)";
+            } else {
+                document.getElementById('labelEditShare1').innerText = "حساب السعيد (له)";
+            }
+        }
+
+        function autoSplitEditAmount() {
+            const amount = Number(document.getElementById('editAmount').value) || 0;
+            document.getElementById('editShare1').value = amount;
+            document.getElementById('editShare2').value = 0;
+        }
+
+        function saveEditedRecord() {
+            const index = Number(document.getElementById('editRecordIndex').value);
+            const type = document.getElementById('editType').value;
+            const amount = Number(document.getElementById('editAmount').value);
+            const share1 = Number(document.getElementById('editShare1').value) || 0;
+            const share2 = Number(document.getElementById('editShare2').value) || 0;
+
+            data[index].leh = type === 'leh' ? amount : "-";
+            data[index].aleih = type === 'aleih' ? amount : "-";
+            data[index].motaz = share1;
+            data[index].hamada = share2;
+
+            localStorage.setItem('ledgerDataFinalCommittedV80', JSON.stringify(data));
+            renderTable();
+            closeAdminModal();
+            alert("تم تحديث بيانات الحساب بنجاح!");
+        }
+
+        function deleteRecord() {
+            if (!confirm("هل أنت متأكد من حذف هذا الاسم تماماً من الكشف؟")) return;
+            const index = Number(document.getElementById('editRecordIndex').value);
+            data.splice(index, 1);
+
+            localStorage.setItem('ledgerDataFinalCommittedV80', JSON.stringify(data));
+            renderTable();
+            closeAdminModal();
+            alert("تم حذف الاسم بنجاح!");
         }
 
         window.onload = function() {
