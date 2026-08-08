@@ -37,7 +37,8 @@
                 </div>
                 <div>
                     <h1 class="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-wide">كشف نقوط</h1>
-                    <p id="syncStatus" class="text-sm text-emerald-600 mt-0.5 font-semibold">جاري الاتصال بقاعدة بيانات السحابة...</p>
+                    <p class="text-sm text-slate-500 mt-0.5 font-semibold">السعيد الدشتي وأولاده</p>
+                    <div id="syncStatus" class="hidden"></div>
                 </div>
             </div>
         </header>
@@ -238,7 +239,6 @@
     </div>
 
     <script>
-        // إعدادات Firebase الخاصة بك
         const firebaseConfig = {
             apiKey: "AIzaSyBkBPU9-cSNIoUHL7wxM3Udmuhsawu8RC0",
             authDomain: "kashf-nkoot.firebaseapp.com",
@@ -249,7 +249,6 @@
             measurementId: "G-Q49E7WZDHW"
         };
 
-        // تهيئة الفايربيز
         firebase.initializeApp(firebaseConfig);
         const db = firebase.firestore();
 
@@ -578,7 +577,6 @@
             { name: "احمد البكري الدشتي", leh: 200, aleih: "-", motaz: 200, hamada: 0 }
         ];
 
-        // جلب البيانات من سحابة فايربيز
         function loadFromCloud() {
             db.collection("ledgerData").doc("mainLedger").get().then((doc) => {
                 if (doc.exists && doc.data().items) {
@@ -589,24 +587,18 @@
                 }
                 processData();
                 renderTable();
-                document.getElementById('syncStatus').innerText = "متصل بالسحابة بنجاح ✓";
             }).catch((error) => {
-                document.getElementById('syncStatus').innerText = "خطأ في الاتصال بالسحابة";
                 data = initialData;
                 processData();
                 renderTable();
             });
         }
 
-        // حفظ البيانات في سحابة فايربيز
         function saveToCloud() {
-            document.getElementById('syncStatus').innerText = "جاري الحفظ بالسحابة...";
             db.collection("ledgerData").doc("mainLedger").set({
                 items: data
-            }).then(() => {
-                document.getElementById('syncStatus').innerText = "متصل بالسحابة بنجاح ✓";
-            }).catch((error) => {
-                alert("حدث خطأ أثناء الحفظ بالسحابة!");
+            }).then(() => {}).catch((error) => {
+                console.error("خطأ في الحفظ السحابي");
             });
         }
 
